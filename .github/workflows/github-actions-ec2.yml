@@ -37,6 +37,7 @@ jobs:
             sudo systemctl restart apache2
             cd home
             sudo mv * /var/www/html
+            sudo systemctl restart apache2  # Restart apache to ensure PHP is handled
 
       # Deploy to Instance 2
       - name: Deploy to EC2 Instance 2
@@ -60,3 +61,4 @@ jobs:
             sudo systemctl restart apache2
             cd home
             sudo mv * /var/www/html
+            sudo systemctl restart apache2  # Restart apache to ensure PHP is handled
