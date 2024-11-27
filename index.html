@@ -9,9 +9,13 @@
 
 <body>
     <h1>Hola Mundo desde EC2</h1>
-    <p>Esta página se sirve desde la instancia EC2 con IP: <strong id="ipAddress">Cargando...</strong></p>
+    <p>Esta página se sirve desde el host: <strong id="hostName">Cargando...</strong></p>
+    <p>Esta página se sirve desde la instancia EC2 con IP pública: <strong id="ipAddress">Cargando...</strong></p>
 
     <script>
+        // Mostrar el nombre del host desde el lado del cliente
+        document.getElementById('hostName').textContent = window.location.hostname;
+
         // Función para obtener la IP pública de la instancia EC2 detrás del balanceador de carga
         fetch('http://169.254.169.254/latest/meta-data/public-ipv4')
             .then(response => response.text())
