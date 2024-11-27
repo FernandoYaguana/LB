@@ -8,34 +8,7 @@
 </head>
 
 <body>
-    <h1>Hola Mundo desde EC2</h1>
-    <p>Esta página se sirve desde el host: <strong id="hostName">Cargando...</strong></p>
-    <p>Esta página se sirve desde la instancia EC2 con IP pública: <strong id="ipAddress">Cargando...</strong></p>
-
-    <script>
-        // Mostrar el nombre del host desde el lado del cliente
-        document.getElementById('hostName').textContent = window.location.hostname;
-
-        // Función para obtener la IP pública de la instancia EC2 detrás del balanceador de carga
-        fetch('http://169.254.169.254/latest/meta-data/public-ipv4')
-            .then(response => response.text())
-            .then(data => {
-                // Actualiza el contenido del elemento con la IP obtenida
-                document.getElementById('ipAddress').textContent = data.trim();
-            })
-            .catch(error => {
-                console.error('Error al obtener la IP:', error);
-                document.getElementById('ipAddress').textContent = 'No se pudo obtener la IP';
-            });
-
-        // (Opcional) Para obtener la IP interna de la instancia EC2
-        fetch('http://169.254.169.254/latest/meta-data/local-ipv4')
-            .then(response => response.text())
-            .then(data => {
-                console.log('La IP interna de la instancia EC2 es:', data);
-            })
-            .catch(error => console.log('Error al obtener la IP interna de la instancia:', error));
-    </script>
+<h1>Hola Mundo desde $(hostname -f)</h1>
 </body>
 
 </html>
