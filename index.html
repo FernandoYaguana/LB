@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hola Mundo - EC2</title>
+</head>
+<body>
+    <h1>Hola Mundo desde EC2</h1>
+    <p>Esta página se sirve desde la instancia EC2 con IP: <strong id="ipAddress">Cargando...</strong></p>
+
+    <script>
+        // Función para obtener la IP pública de la instancia
+        fetch('http://checkip.amazonaws.com/')
+            .then(response => response.text())
+            .then(data => {
+                // Actualiza el contenido del elemento con la IP obtenida
+                document.getElementById('ipAddress').textContent = data.trim();
+            })
+            .catch(error => {
+                console.error('Error al obtener la IP:', error);
+                document.getElementById('ipAddress').textContent = 'No se pudo obtener la IP';
+            });
+    </script>
+</body>
+</html>
