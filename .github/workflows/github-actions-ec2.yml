@@ -8,7 +8,7 @@ on:
 
 jobs:
   deploy:
-    name: Deploy to EC2 on main branch push
+    name: Deploy to EC2 on qa branch push
     runs-on: ubuntu-latest
 
     steps:
@@ -20,14 +20,14 @@ jobs:
         uses: easingthemes/ssh-deploy@main
         env:
           SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
-          REMOTE_HOST: ${{ secrets.INSTANCE1_DNS }}
+          REMOTE_HOST: ${{ secrets.INSTANCE4_DNS }}
           REMOTE_USER: ${{ secrets.USERNAME }}
           TARGET: /home/ubuntu
 
       - name: Verify files after deployment on Server 1
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.INSTANCE1_DNS }}
+          host: ${{ secrets.INSTANCE4_DNS }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
@@ -37,7 +37,7 @@ jobs:
       - name: Install Apache and move files to Apache directory on Server 1
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.INSTANCE1_DNS }}
+          host: ${{ secrets.INSTANCE4_DNS }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
@@ -50,7 +50,7 @@ jobs:
       - name: Verify files in Apache directory on Server 1
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.INSTANCE1_DNS }}
+          host: ${{ secrets.INSTANCE4_DNS }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
@@ -60,7 +60,7 @@ jobs:
       - name: Modify index.html for Server 1
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.INSTANCE1_DNS }}
+          host: ${{ secrets.INSTANCE4_DNS }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
@@ -188,3 +188,4 @@ jobs:
               echo "Error: File $FILE_PATH not found."
               exit 1
             fi
+
